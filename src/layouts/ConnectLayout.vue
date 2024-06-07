@@ -1,5 +1,5 @@
 <template>
-  <q-layout view="hhr lpr ffr">
+  <q-layout view="hhr lpr fFr">
     <q-header elevated>
       <q-toolbar>
         <q-btn
@@ -33,6 +33,32 @@
           v-bind="link"
         />
       </q-list>
+      <q-separator  />
+      <q-list>
+
+
+        <AccountLink
+          v-for="account in accounts"
+          :key="account.id"
+          v-bind="account"
+        />
+      </q-list>
+      <q-separator  />
+
+      <q-item
+        clickable
+      >
+        <q-item-section
+          avatar
+        >
+          <q-icon name="add" />
+        </q-item-section>
+
+        <q-item-section>
+          <q-item-label>Add a new account</q-item-label>
+        </q-item-section>
+      </q-item>
+
     </q-drawer>
 
     <q-page-container>
@@ -44,6 +70,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import EssentialLink from "components/EssentialLink.vue";
+import AccountLink from "components/AccountLink.vue";
 
 defineOptions({
   name: 'MainLayout'
@@ -63,7 +90,39 @@ const linksList = [
     link: '/balance'
   }
 ];
-
+const accounts = ref([
+  {
+    address: '4AxM ... Ev7Z',
+    balance: '5 XMR',
+    name: 'Main Account',
+    id: 1,
+    active: true
+  },
+  {
+    address: '4AxM ... Ev7Z',
+    balance: '5 XMR',
+    name: 'Side Account',
+    id: 2
+  },
+  {
+    address: '4AxM ... Ev7Z',
+    balance: '5 XMR',
+    name: 'Side Account 2',
+    id: 3
+  },
+  {
+    address: '4AxM ... Ev7Z',
+    balance: '5 XMR',
+    name: 'Main Account',
+    id: 4
+  },
+  {
+    address: '4AxM ... Ev7Z',
+    balance: '5 XMR',
+    name: 'Main Account',
+    id: 5
+  }
+])
 const leftDrawerOpen = ref(false);
 
 function toggleLeftDrawer () {

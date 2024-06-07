@@ -24,15 +24,23 @@
         </q-card-section>
       </q-card-section>
     </q-card>
-    <q-list bordered separator v-for="wallet in wallets" :key="wallet.address" class="q-mx-lg col" >
-      <q-item clickable v-ripple >
-        <q-item-section>
-          <q-item-label overline>{{ wallet.name}}</q-item-label>
-          <q-item-label>{{ wallet.address}}</q-item-label>
-          <q-item-label caption>{{wallet.balance}}</q-item-label>
-        </q-item-section>
-      </q-item>
+
+    <q-list           v-for="transaction in transactions" bordered
+                      :key="transaction.id" >
+      <q-expansion-item
+        :icon="transaction.incoming ? 'arrow_downward': 'arrow_upward'" :header-class=" transaction.incoming ? 'text-positive': 'text-negative'"
+        :label="(transaction.incoming ? 'Received ' : 'Sent ') +  transaction.amount + 'XMR'"
+        :caption = "transaction.status"
+      >
+        <q-card>
+          <q-card-section>
+            TransactionID: {{ transaction.id }}
+            Datetime: {{ transaction.date }}
+          </q-card-section>
+        </q-card>
+      </q-expansion-item>
     </q-list>
+
     <q-btn
       round
       dense
@@ -104,36 +112,143 @@ function createWallet(){
   });
   text.value = '';
 }
-const wallets = ref([
+const transactions = ([
   {
-    address: '4AxM ... Ev7Z',
-    balance: '5 XMR',
-    name: 'Main Wallet',
-    id: 1
+    id: 'f65sd6dsf65456a',
+    amount: 0.5,
+    date: '2021-09-01 12:00:00',
+    status: 'Confirmed',
+    incoming: true
   },
   {
-    address: '4AxM ... Ev7Z',
-    balance: '5 XMR',
-    name: 'Side Wallet',
-    id: 2
+    id: 'f65sd6dsf65456a',
+    amount: 0.5,
+    date: '2021-09-01 12:00:00',
+    status: 'Confirmed',
+    incoming: false
   },
   {
-    address: '4AxM ... Ev7Z',
-    balance: '5 XMR',
-    name: 'Side Wallet 2',
-    id: 3
+    id: 'f65sd6dsf65456a',
+    amount: 0.5,
+    date: '2021-09-01 12:00:00',
+    status: 'Confirmed',
+    incoming: true
   },
   {
-    address: '4AxM ... Ev7Z',
-    balance: '5 XMR',
-    name: 'Main Wallet',
-    id: 4
+    id: 'f65sd6dsf65456a',
+    amount: 0.5,
+    date: '2021-09-01 12:00:00',
+    status: 'Confirmed',
+    incoming: true
   },
   {
-    address: '4AxM ... Ev7Z',
-    balance: '5 XMR',
-    name: 'Main Wallet',
-    id: 5
-  }
-])
+    id: 'f65sd6dsf65456a',
+    amount: 0.5,
+    date: '2021-09-01 12:00:00',
+    status: 'Confirmed',
+    incoming: true
+  },
+  {
+    id: 'f65sd6dsf65456a',
+    amount: 0.5,
+    date: '2021-09-01 12:00:00',
+    status: 'Confirmed',
+    incoming: true
+  },
+  {
+    id: 'f65sd6dsf65456a',
+    amount: 0.5,
+    date: '2021-09-01 12:00:00',
+    status: 'Confirmed',
+    incoming: true
+  },
+  {
+    id: 'f65sd6dsf65456a',
+    amount: 0.5,
+    date: '2021-09-01 12:00:00',
+    status: 'Confirmed',
+    incoming: true
+  },
+  {
+    id: 'f65sd6dsf65456a',
+    amount: 0.5,
+    date: '2021-09-01 12:00:00',
+    status: 'Confirmed',
+    incoming: true
+  },
+  {
+    id: 'f65sd6dsf65456a',
+    amount: 0.5,
+    date: '2021-09-01 12:00:00',
+    status: 'Confirmed',
+    incoming: true
+  },
+  {
+    id: 'f65sd6dsf65456a',
+    amount: 0.5,
+    date: '2021-09-01 12:00:00',
+    status: 'Confirmed',
+    incoming: true
+  },
+  {
+    id: 'f65sd6dsf65456a',
+    amount: 0.5,
+    date: '2021-09-01 12:00:00',
+    status: 'Confirmed',
+    incoming: true
+  },
+  {
+    id: 'f65sd6dsf65456a',
+    amount: 0.5,
+    date: '2021-09-01 12:00:00',
+    status: 'Confirmed',
+    incoming: true
+  },
+  {
+    id: 'f65sd6dsf65456a',
+    amount: 0.5,
+    date: '2021-09-01 12:00:00',
+    status: 'Confirmed',
+    incoming: true
+  },
+  {
+    id: 'f65sd6dsf65456a',
+    amount: 0.5,
+    date: '2021-09-01 12:00:00',
+    status: 'Confirmed',
+    incoming: true
+  },
+]);
+// const wallets = ref([
+//   {
+//     address: '4AxM ... Ev7Z',
+//     balance: '5 XMR',
+//     name: 'Main Wallet',
+//     id: 1
+//   },
+//   {
+//     address: '4AxM ... Ev7Z',
+//     balance: '5 XMR',
+//     name: 'Side Wallet',
+//     id: 2
+//   },
+//   {
+//     address: '4AxM ... Ev7Z',
+//     balance: '5 XMR',
+//     name: 'Side Wallet 2',
+//     id: 3
+//   },
+//   {
+//     address: '4AxM ... Ev7Z',
+//     balance: '5 XMR',
+//     name: 'Main Wallet',
+//     id: 4
+//   },
+//   {
+//     address: '4AxM ... Ev7Z',
+//     balance: '5 XMR',
+//     name: 'Main Wallet',
+//     id: 5
+//   }
+// ])
 </script>

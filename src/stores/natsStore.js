@@ -21,7 +21,7 @@ export const natsStore = defineStore('nats', {
     },
     getWallet: (state)=>{
       return state.wallet
-    },
+      },
     isInitialized: (state)=>{
       return state.initialized
     }
