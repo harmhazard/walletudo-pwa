@@ -17,7 +17,7 @@ const routes = [
       { path: 'receive', component: ReceivePage, name: 'Receive' },
       { path: 'balance', component: BalancePage, name: 'Balance' },
       { path: 'transactions', component: TransactionsPage, name: 'Transactions' },
-      {path: 'sent', component: SentPage, name: 'Sent' },
+      {path: 'send', component: SentPage, name: 'Send' },
       {path: 'test', component: TestPage, name: 'Test'}
     ]
   },

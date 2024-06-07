@@ -26,7 +26,7 @@
     </q-card>
 
     <q-list           v-for="transaction in transactions" bordered
-                      :key="transaction.id" >
+                      :key="transaction.id" class="q-mx-lg">
       <q-expansion-item
         :icon="transaction.incoming ? 'arrow_downward': 'arrow_upward'" :header-class=" transaction.incoming ? 'text-positive': 'text-negative'"
         :label="(transaction.incoming ? 'Received ' : 'Sent ') +  transaction.amount + 'XMR'"
@@ -41,15 +41,7 @@
       </q-expansion-item>
     </q-list>
 
-    <q-btn
-      round
-      dense
-      color="primary"
-      size="xl"
-      icon="add"
-      style="bottom: 80px; left: 10px; position: fixed;"
-      @click = "alert=true"
-    />
+
   </q-page>
 
   <q-dialog v-model="alert" persistent class="q-px-xl">

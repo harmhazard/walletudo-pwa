@@ -18,28 +18,13 @@
       </q-toolbar>
     </q-header>
 
-    <q-drawer
-      v-model="leftDrawerOpen"
-      bordered
-    >
-      <q-list>
-        <q-item-label
-          header>
-        </q-item-label>
-
-        <EssentialLink
-          v-for="link in linksList"
-          :key="link.title"
-          v-bind="link"
-        />
-      </q-list>
-    </q-drawer>
+    <DrawerMenu :leftDrawerOpen="leftDrawerOpen"/>
     <q-footer>
       <q-tabs
       >
         <q-route-tab to='/receive' name="receive" icon="file_download" label="Receive" />
         <q-route-tab to='/' name="balance" icon="account_balance_wallet" label="Balance" />
-        <q-route-tab to='/sent' name="sent" icon="file_upload" label="Sent" />
+        <q-route-tab to='/send' name="send" icon="file_upload" label="Send" />
       </q-tabs>
     </q-footer>
 
@@ -52,6 +37,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import EssentialLink from "components/EssentialLink.vue";
+import DrawerMenu from "components/DrawerMenu.vue";
 
 defineOptions({
   name: 'MainLayout'

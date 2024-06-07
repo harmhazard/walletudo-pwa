@@ -18,48 +18,7 @@
       </q-toolbar>
     </q-header>
 
-    <q-drawer
-      v-model="leftDrawerOpen"
-      bordered
-    >
-      <q-list>
-        <q-item-label
-          header>
-        </q-item-label>
-
-        <EssentialLink
-          v-for="link in linksList"
-          :key="link.title"
-          v-bind="link"
-        />
-      </q-list>
-      <q-separator  />
-      <q-list>
-
-
-        <AccountLink
-          v-for="account in accounts"
-          :key="account.id"
-          v-bind="account"
-        />
-      </q-list>
-      <q-separator  />
-
-      <q-item
-        clickable
-      >
-        <q-item-section
-          avatar
-        >
-          <q-icon name="add" />
-        </q-item-section>
-
-        <q-item-section>
-          <q-item-label>Add a new account</q-item-label>
-        </q-item-section>
-      </q-item>
-
-    </q-drawer>
+    <DrawerMenu :leftDrawerOpen="leftDrawerOpen"/>
 
     <q-page-container>
       <router-view />
@@ -71,6 +30,7 @@
 import { ref } from 'vue';
 import EssentialLink from "components/EssentialLink.vue";
 import AccountLink from "components/AccountLink.vue";
+import DrawerMenu from "components/DrawerMenu.vue";
 
 defineOptions({
   name: 'MainLayout'
