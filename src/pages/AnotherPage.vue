@@ -5,7 +5,7 @@
       src="~assets/quasar-logo-vertical.svg"
       style="width: 200px; height: 200px"
     >
-    <q-btn color="primary" label="Primary" to="/another" />
+    <q-btn color="primary" label="Primary" to="/" />
   </q-page>
 </template>
 
@@ -16,10 +16,9 @@ import {useCounterStore} from "stores/nats"
 let store = useCounterStore()
 
 export default defineComponent({
-  name: 'IndexPage',
+  name: 'AnotherPage',
   mounted() {
-    store.increment()
-    console.log("VISIBLE!")
+    console.log("value is", store.doubleCount)
   }
 });
 </script>
