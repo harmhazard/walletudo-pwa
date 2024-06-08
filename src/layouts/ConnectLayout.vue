@@ -18,7 +18,7 @@
       </q-toolbar>
     </q-header>
 
-    <DrawerMenu :leftDrawerOpen="leftDrawerOpen"/>
+    <DrawerMenu :leftDrawerOpen="leftDrawerOpen" @toggleDrawer="toggleLeftDrawer"/>
 
     <q-page-container>
       <router-view />

@@ -19,6 +19,7 @@
         v-for="wallet in wallets"
       :key="wallet.subject"
       v-bind="wallet"
+        @toggleDrawer="emitToggleDrawer"
       />
     </q-list>
     <q-separator/>
@@ -72,6 +73,11 @@ var newAccount = ref(false);
 const walletSubjects = computed(() =>
   wallets.value.map(wallet => ({ label: wallet.subject, value: wallet.subject }))
 );
+const emit = defineEmits(['toggleDrawer']);
+
+function emitToggleDrawer() {
+  emit('toggleDrawer');
+}
 function openDialog(){
   newAccount.value = true;
 }

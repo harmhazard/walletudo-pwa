@@ -39,10 +39,12 @@ const props = defineProps({
 });
 const router = useRouter()
 const store = newNatsStore()
+const emit = defineEmits(['toggleDrawer']);
 
 function switchAccount(wallet, account){
   store.setAccount(wallet, account)
   router.push('/')
+  emit('toggleDrawer');
 }
 
 </script>
