@@ -1,45 +1,37 @@
 import { defineStore } from 'pinia'
-import {connect, StringCodec} from "nats.ws";
+import {connect} from "nats.ws";
 
-export const natsStore = defineStore('nats', {
+export const newNatsStore = defineStore('nats', {
   state: () => ({
-    initialized: false,
+    url: '',
     user: '',
     password: '',
-    url: '',
-    subject: '',
-    wallet: '',
     connection: null
   }),
-
   getters: {
     getCredentials: (state)=>{
-      return {user:state.user, password:state.password, url:state.url, subject:state.subject, wallet:state.wallet}
+      return {
+        url: state.url,
+        user: state.user,
+        password: state.password,
+      }
     },
-    getSubject: (state)=>{
-      return state.subject
+    getConnection: (state)=>{
+      return state.connection
     },
-    getWallet: (state)=>{
-      return state.wallet
-      },
-    isInitialized: (state)=>{
-      return state.initialized
-    }
   },
   actions: {
-    async connect(user, password, url, subject, wallet){
+    async connect(url, user, password){
+      this.url = url
       this.user = user
       this.password = password
-      this.url = url
-      this.subject = subject
-      this.wallet = wallet
-      this.connection = await connect({servers: [this.url], user: this.user, pass: this.password, timeout: 10000 });
-      this.initialized = true;
-      const sc = StringCodec();
-
-      this.connection.request(this.getSubject, sc.encode(`{"jsonrpc":"2.0","id":"${this.getWallet}","method":"wallet.listAccounts","params":{}}`), {timeout:10000}).then((m) => {
-        console.log('connection initialized')
-      })
-      }
+      this.connection = await connect({
+        servers: [this.url],
+        user: this.user,
+        pass: this.password,
+        timeout: 10000,
+        // TODO: reconnect
+      });
+    }
   }
 })
