@@ -7,6 +7,8 @@ export const newNatsStore = defineStore('nats', {
     url: '',
     user: '',
     password: '',
+    subject: '',
+    account: null,
     connection: null,
   }),
   getters: {
@@ -33,6 +35,10 @@ export const newNatsStore = defineStore('nats', {
         timeout: 10000,
         // TODO: reconnect
       });
+    },
+    setAccount(subject, account){
+      this.subject = subject
+      this.account = account
     },
     async rpcRequest(method, params) {
       if(this.connection == null) {

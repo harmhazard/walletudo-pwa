@@ -21,6 +21,7 @@
 <script setup>
 import {useRoute, useRouter} from "vue-router";
 import {onMounted} from "vue";
+import {newNatsStore} from "stores/natsStore";
 
 defineOptions({
   name: 'EssentialLink'
@@ -37,9 +38,10 @@ const props = defineProps({
   }
 });
 const router = useRouter()
+const store = newNatsStore()
 
 function switchAccount(wallet, account){
-  console.log(`switching to ${wallet} wallet and ${account} account`)
+  store.setAccount(wallet, account)
   router.push('/')
 }
 
