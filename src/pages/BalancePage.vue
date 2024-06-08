@@ -65,7 +65,7 @@
 <script setup lang="ts">
 
 import {onMounted, ref} from 'vue';
-import {natsStore} from "stores/natsStore";
+import {newNatsStore} from "stores/natsStore";
 import {StringCodec} from "nats.ws";
 
 // import {useCredentialsStore} from '../store/credentials';
@@ -77,7 +77,7 @@ import {StringCodec} from "nats.ws";
 //   console.log(credentialsStore.service, credentialsStore.url, credentialsStore.user, credentialsStore.wallet, credentialsStore.password);
 // }
 
-  const store = natsStore ();
+  const store = newNatsStore ();
   const sc = StringCodec();
 
 onMounted(() => {
