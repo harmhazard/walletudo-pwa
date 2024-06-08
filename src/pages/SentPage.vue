@@ -4,17 +4,14 @@
 
     <q-input filled v-model="text" label="Send to" class="" />
 
-    <div class="text-subtitle2">amount:</div>
       <q-input
         filled
         v-model="amount"
         label="Amount"
-        mask="#.############"
-        fill-mask="0"
-        reverse-fill-mask
         input-class="text-right"
         style="max-width: 200px"
         class="col"
+        :rules="[ val => isValidAmount(val) || 'Enter a valid value' ]"
       ></q-input>
       <q-btn  label="Send" color="primary" style="max-width: 100px"/>
 
@@ -31,7 +28,12 @@ import {ref} from 'vue';
 defineOptions({
   name: 'SentPage'
 });
-const text = ref('a');
+const text = ref('');
 const amount = ref('0.0')
+
+function isValidAmount(str) {
+  const floatRegex = /^(?:\d+(\.\d{1,12})?|\.\d{1,12})$/;
+  return floatRegex.test(str);
+}
 
 </script>

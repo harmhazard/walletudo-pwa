@@ -14,7 +14,7 @@
       color="primary"
       size="xl"
       icon="add"
-      style="bottom: 80px; left: 10px; position: fixed;"
+      style="bottom: 80px; right: 10px; position: fixed;"
       @click = "alert=true"
     />
   </q-page>
