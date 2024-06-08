@@ -34,8 +34,14 @@
       >
         <q-card>
           <q-card-section>
-            TransactionID: {{ transaction.id }}
-            Datetime: {{ transaction.date }}
+            <q-item class="text-subtitle2">
+              <q-icon name="tag"></q-icon>
+              TransactionID: {{ transaction.id }}
+            </q-item>
+            <q-item class="text-subtitle2">
+              <q-icon name="calendar_month"></q-icon>
+              Datetime: {{ transaction.date }}
+            </q-item>
           </q-card-section>
         </q-card>
       </q-expansion-item>

@@ -24,13 +24,15 @@
       <router-view />
     </q-page-container>
   </q-layout>
+
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue';
 import EssentialLink from "components/EssentialLink.vue";
-import AccountLink from "components/AccountLink.vue";
+import AccountLink from "components/WalletLink.vue";
 import DrawerMenu from "components/DrawerMenu.vue";
+import RecursiveLink from "components/RecursiveLink.vue";
 
 defineOptions({
   name: 'MainLayout'

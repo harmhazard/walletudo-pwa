@@ -4,9 +4,6 @@
     bordered
   >
     <q-list>
-      <q-item-label
-        header>
-      </q-item-label>
 
       <EssentialLink
         v-for="link in linksList"
@@ -18,10 +15,10 @@
     <q-list>
 
 
-      <AccountLink
-        v-for="account in accounts"
-      :key="account.id"
-      v-bind="account"
+      <WalletLink
+        v-for="wallet in wallets"
+      :key="wallet.subject"
+      v-bind="wallet"
       />
     </q-list>
     <q-separator/>
@@ -61,7 +58,7 @@
 
 import { ref } from 'vue';
 import EssentialLink from "components/EssentialLink.vue";
-import AccountLink from "components/AccountLink.vue";
+import WalletLink from "components/WalletLink.vue";
 
 defineOptions({
   name: 'DrawerMenu'
@@ -94,48 +91,118 @@ const linksList = [
     // caption: 'Connect to walletudo server',
     icon: 'login',
     link: '/connect'
-  },
-  {
-    title: 'Dashboard',
-    // caption: 'Disconnect from current server',
-    icon: 'wallet',
-    link: '/'
   }
 ];
-const accounts = ref([
+const wallets = ref([
   {
-    address: '4AxM ... Ev7Z',
-    balance: '5 XMR',
-    name: 'Main Account',
-    id: 1,
-    active: true
+    subject: 'wallet1',
+    accounts:[
+      {
+        address: '4AxM ... Ev7Z',
+        balance: '5 XMR',
+        name: 'Main Account',
+        id: 1,
+        active: true
+      },
+      {
+        address: '4AxM ... Ev7Z',
+        balance: '5 XMR',
+        name: 'Side Account',
+        id: 2
+      }
+    ]
   },
   {
-    address: '4AxM ... Ev7Z',
-    balance: '5 XMR',
-    name: 'Side Account',
-    id: 2
+    subject: 'wallet2',
+    accounts:[
+      {
+        address: '4AxM ... Ev7Z',
+        balance: '5 XMR',
+        name: 'Main Account',
+        id: 1,
+        active: true
+      },
+      {
+        address: '4AxM ... Ev7Z',
+        balance: '5 XMR',
+        name: 'Side Account',
+        id: 2
+      }
+    ]
   },
   {
-    address: '4AxM ... Ev7Z',
-    balance: '5 XMR',
-    name: 'Side Account 2',
-    id: 3
+    subject: 'wallet3',
+    accounts:[
+      {
+        address: '4AxM ... Ev7Z',
+        balance: '5 XMR',
+        name: 'Main Account',
+        id: 1,
+        active: true
+      },
+      {
+        address: '4AxM ... Ev7Z',
+        balance: '5 XMR',
+        name: 'Side Account',
+        id: 2
+      }
+    ]
   },
   {
-    address: '4AxM ... Ev7Z',
-    balance: '5 XMR',
-    name: 'Main Account',
-    id: 4
+    subject: 'wallet4',
+    accounts:[
+      {
+        address: '4AxM ... Ev7Z',
+        balance: '5 XMR',
+        name: 'Main Account',
+        id: 1,
+        active: true
+      },
+      {
+        address: '4AxM ... Ev7Z',
+        balance: '5 XMR',
+        name: 'Side Account',
+        id: 2
+      }
+    ]
   },
   {
-    address: '4AxM ... Ev7Z',
-    balance: '5 XMR',
-    name: 'Main Account',
-    id: 5
+    subject: 'wallet5',
+    accounts:[
+      {
+        address: '4AxM ... Ev7Z',
+        balance: '5 XMR',
+        name: 'Main Account',
+        id: 1,
+        active: true
+      },
+      {
+        address: '4AxM ... Ev7Z',
+        balance: '5 XMR',
+        name: 'Side Account',
+        id: 2
+      }
+    ]
+  },
+  {
+    subject: 'wallet6',
+    accounts:[
+      {
+        address: '4AxM ... Ev7Z',
+        balance: '5 XMR',
+        name: 'Main Account',
+        id: 1,
+        active: true
+      },
+      {
+        address: '4AxM ... Ev7Z',
+        balance: '5 XMR',
+        name: 'Side Account',
+        id: 2
+      }
+    ]
   }
 ])
-
 </script>
 <style scoped>
 

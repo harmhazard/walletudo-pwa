@@ -3,6 +3,7 @@
     clickable
     tag="a"
     :to="props.link"
+    class="q-my-sm"
   >
     <q-item-section
       v-if="props.icon"
