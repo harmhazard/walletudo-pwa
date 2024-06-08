@@ -1,30 +1,27 @@
 <template>
-  <q-item
+  <q-expansion-item
     clickable
     :active = "props.active"
-  class="q-mt-sm">
-    <q-item-section
-      avatar
-    >
-      <q-icon name="account_balance_wallet" />
-    </q-item-section>
+  class="q-mt-sm"
+  :label="props.subject"
+  icon="account_balance_wallet"
+  >
 
-    <q-item-section>
-      <q-item-label>{{ props.subject }}</q-item-label>
-    </q-item-section>
+    <q-item v-for="account in props.accounts" :key="account.id" clickable  dense  @click="switchAccount(props.subject, account.id)">
+      <q-item-section class="q-ml-xl">
+        <q-item-label overline>{{ account.balance }}</q-item-label>
+        <q-item-label>{{ account.name }}</q-item-label>
+      </q-item-section>
+    </q-item>
 
+  </q-expansion-item>
 
-  </q-item>
-  <q-item v-for="account in props.accounts" :key="account.id" clickable dense>
-
-    <q-item-section class="q-ml-xl">
-      <q-item-label overline>{{ account.balance }}</q-item-label>
-      <q-item-label>{{ account.name }}</q-item-label>
-    </q-item-section>
-  </q-item>
 </template>
 
 <script setup>
+import {useRoute, useRouter} from "vue-router";
+import {onMounted} from "vue";
+
 defineOptions({
   name: 'EssentialLink'
 })
@@ -39,5 +36,11 @@ const props = defineProps({
     default: () => []
   }
 });
+const router = useRouter()
+
+function switchAccount(wallet, account){
+  console.log(`switching to ${wallet} wallet and ${account} account`)
+  router.push('/')
+}
 
 </script>

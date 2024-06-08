@@ -44,7 +44,7 @@
         <div class="text-h6">Create a new Account</div>
       </q-card-section>
       <q-card-section>
-        <q-input filled v-model="accountName" label="Account name" b />
+        <q-input filled v-model="accountName" label="Account name" />
       </q-card-section>
       <q-card-section>
         <q-select filled :options="walletSubjects" v-model="selectedWallet" label="Wallet"></q-select>
