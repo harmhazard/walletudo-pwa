@@ -1,5 +1,5 @@
 <template>
-  <q-page class="items-center justify-evenly col">
+  <q-page class="items-center justify-evenly col q-mx-lg">
     <div class="q-gutter-y-md column col-auto" style="max-width: 600px; margin:auto;">
       <q-input filled v-model="url" label="URL" class="" />
       <q-input filled v-model="user" label="User" class="" />

@@ -1,6 +1,6 @@
 <template>
-  <q-page class=" items-center justify-evenly "  style="width: 100%;">
-    <q-card class="col q-mx-lg"  >
+  <q-page class=" items-center justify-evenly q-mx-lg">
+    <q-card class="col">
       <q-card-section horizontal border class="justify-between q-mx-sm-auto">
         <q-card-section class="q-pt-xs" >
           <div class="text-overline">Available Balance</div>
@@ -26,7 +26,7 @@
     </q-card>
 
     <q-list           v-for="transaction in transactions" bordered
-                      :key="transaction.id" class="q-mx-lg">
+                      :key="transaction.id">
       <q-expansion-item
         :icon="transaction.incoming ? 'arrow_downward': 'arrow_upward'" :header-class=" transaction.incoming ? 'text-positive': 'text-negative'"
         :label="(transaction.incoming ? 'Received ' : 'Sent ') +  transaction.amount + 'XMR'"
