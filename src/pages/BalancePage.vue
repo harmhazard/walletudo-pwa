@@ -4,15 +4,15 @@
       <q-card-section horizontal border class="justify-between q-mx-sm-auto">
         <q-card-section class="q-pt-xs" >
           <div class="text-overline">Available Balance</div>
-          <div class="text-h5 q-mt-sm q-mb-xs">0.2 XMR</div>
-          <div class="text-caption text-grey">
+          <div class="text-h5 q-mt-sm q-mb-xs">{{unlockedBalance}} XMR</div>
+          <!--<div class="text-caption text-grey">
             $40
-          </div>
+          </div>-->
           <div class="text-overline">Total Balance</div>
-          <div class="text-h5 q-mt-sm q-mb-xs">0.25 XMR</div>
-          <div class="text-caption text-grey">
+          <div class="text-h5 q-mt-sm q-mb-xs">{{ balance }} XMR</div>
+          <!--<div class="text-caption text-grey">
             $50
-          </div>
+          </div>-->
         </q-card-section>
 
         <q-card-section class="col-5 flex flex-center float-right">
@@ -25,12 +25,13 @@
       </q-card-section>
     </q-card>
 
-    <q-list           v-for="transaction in transactions" bordered
-                      :key="transaction.id">
+    <q-list v-for="transaction in transactions" bordered
+            :key="transaction.id">
       <q-expansion-item
-        :icon="transaction.incoming ? 'arrow_downward': 'arrow_upward'" :header-class=" transaction.incoming ? 'text-positive': 'text-negative'"
-        :label="(transaction.incoming ? 'Received ' : 'Sent ') +  transaction.amount + 'XMR'"
-        :caption = "transaction.status"
+        :icon="icons[transaction.state]"
+        :header-class="colors[transaction.state]"
+        :label="transaction.amount + ' XMR'"
+        :caption = "transactionStatesInverted[transaction.state]"
       >
         <q-card>
           <q-card-section>
@@ -74,33 +75,24 @@ import {onMounted, ref} from 'vue';
 import {newNatsStore} from "stores/natsStore";
 import {StringCodec} from "nats.ws";
 
-// import {useCredentialsStore} from '../store/credentials';
-//
-// const credentialsStore = useCredentialsStore();
-// const disconnect = () => {
-// //prints credentials from credentialsStore to log
-//   console.log('aa');
-//   console.log(credentialsStore.service, credentialsStore.url, credentialsStore.user, credentialsStore.wallet, credentialsStore.password);
-// }
+
 
   const store = newNatsStore ();
   const sc = StringCodec();
 
 onMounted(() => {
-  console.log(store.getSubject);
-  if(store.isInitialized){
-    store.connection.request(store.getSubject, sc.encode(`{"jsonrpc":"2.0","id":"${store.getWallet}","method":"wallet.listAccounts","params":{}}`), {timeout:10000}).then((m) => {
-      console.log(`response: ${sc.decode(m.data)}`);
-      console.log(JSON.parse(sc.decode(m.data)));
-    })
-  }
+  loadBalance();
+  loadTransactions();
 });
 
 defineOptions({
   name: 'BalancePage'
 });
-var walletName = ref('');
-var alert = ref(false);
+const walletName = ref('');
+const alert = ref(false);
+const balance = ref('');
+const unlockedBalance = ref('');
+
 function createWallet(){
   wallets.value.push({
     address: 'aa',
@@ -110,143 +102,62 @@ function createWallet(){
   });
   text.value = '';
 }
-const transactions = ([
-  {
-    id: 'f65sd6dsf65456a',
-    amount: 0.5,
-    date: '2021-09-01 12:00:00',
-    status: 'Confirmed',
-    incoming: true
-  },
-  {
-    id: 'f65sd6dsf65456a',
-    amount: 0.5,
-    date: '2021-09-01 12:00:00',
-    status: 'Confirmed',
-    incoming: false
-  },
-  {
-    id: 'f65sd6dsf65456a',
-    amount: 0.5,
-    date: '2021-09-01 12:00:00',
-    status: 'Confirmed',
-    incoming: true
-  },
-  {
-    id: 'f65sd6dsf65456a',
-    amount: 0.5,
-    date: '2021-09-01 12:00:00',
-    status: 'Confirmed',
-    incoming: true
-  },
-  {
-    id: 'f65sd6dsf65456a',
-    amount: 0.5,
-    date: '2021-09-01 12:00:00',
-    status: 'Confirmed',
-    incoming: true
-  },
-  {
-    id: 'f65sd6dsf65456a',
-    amount: 0.5,
-    date: '2021-09-01 12:00:00',
-    status: 'Confirmed',
-    incoming: true
-  },
-  {
-    id: 'f65sd6dsf65456a',
-    amount: 0.5,
-    date: '2021-09-01 12:00:00',
-    status: 'Confirmed',
-    incoming: true
-  },
-  {
-    id: 'f65sd6dsf65456a',
-    amount: 0.5,
-    date: '2021-09-01 12:00:00',
-    status: 'Confirmed',
-    incoming: true
-  },
-  {
-    id: 'f65sd6dsf65456a',
-    amount: 0.5,
-    date: '2021-09-01 12:00:00',
-    status: 'Confirmed',
-    incoming: true
-  },
-  {
-    id: 'f65sd6dsf65456a',
-    amount: 0.5,
-    date: '2021-09-01 12:00:00',
-    status: 'Confirmed',
-    incoming: true
-  },
-  {
-    id: 'f65sd6dsf65456a',
-    amount: 0.5,
-    date: '2021-09-01 12:00:00',
-    status: 'Confirmed',
-    incoming: true
-  },
-  {
-    id: 'f65sd6dsf65456a',
-    amount: 0.5,
-    date: '2021-09-01 12:00:00',
-    status: 'Confirmed',
-    incoming: true
-  },
-  {
-    id: 'f65sd6dsf65456a',
-    amount: 0.5,
-    date: '2021-09-01 12:00:00',
-    status: 'Confirmed',
-    incoming: true
-  },
-  {
-    id: 'f65sd6dsf65456a',
-    amount: 0.5,
-    date: '2021-09-01 12:00:00',
-    status: 'Confirmed',
-    incoming: true
-  },
-  {
-    id: 'f65sd6dsf65456a',
-    amount: 0.5,
-    date: '2021-09-01 12:00:00',
-    status: 'Confirmed',
-    incoming: true
-  },
-]);
-// const wallets = ref([
-//   {
-//     address: '4AxM ... Ev7Z',
-//     balance: '5 XMR',
-//     name: 'Main Wallet',
-//     id: 1
-//   },
-//   {
-//     address: '4AxM ... Ev7Z',
-//     balance: '5 XMR',
-//     name: 'Side Wallet',
-//     id: 2
-//   },
-//   {
-//     address: '4AxM ... Ev7Z',
-//     balance: '5 XMR',
-//     name: 'Side Wallet 2',
-//     id: 3
-//   },
-//   {
-//     address: '4AxM ... Ev7Z',
-//     balance: '5 XMR',
-//     name: 'Main Wallet',
-//     id: 4
-//   },
-//   {
-//     address: '4AxM ... Ev7Z',
-//     balance: '5 XMR',
-//     name: 'Main Wallet',
-//     id: 5
-//   }
-// ])
+const transactions = ref([])
+const transactionStates = {'incoming': 0, 'outgoing':1, 'pending':2, 'failed':3};
+const transactionStatesInverted = ['incoming', 'outgoing', 'pending', 'failed'];
+const icons = ['arrow_downward', 'arrow_upward', 'remove', 'remove'];
+const colors = ['text-positive', 'text-negative', 'text-grey-9', 'text-grey-9'];
+
+function convertUnixTimestampToDateTime(timestamp) {
+  // Create a new Date object by multiplying the timestamp by 1000 to convert seconds to milliseconds
+  const date = new Date(timestamp * 1000);
+
+  // Extract the date and time components
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed
+  const day = String(date.getDate()).padStart(2, '0');
+  const hours = String(date.getHours()).padStart(2, '0');
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+  const seconds = String(date.getSeconds()).padStart(2, '0');
+
+  // Construct the datetime string
+  const dateTimeString = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+
+  return dateTimeString;
+}
+
+function createTransaction(transaction, state){
+  return {
+    id: transaction.txid,
+    amount: (transaction.amount / 1000000000000).toFixed(12),
+    date: convertUnixTimestampToDateTime(transaction.timestamp),//from timestamp
+    state: state
+  };
+}
+function loadBalance(){
+  store.rpcRequest("wallet.account.getBalance", {"accountID":1}).then((m) => {
+    balance.value = (m.balance / 1000000000000).toFixed(12);
+    unlockedBalance.value = (m.unlocked_balance / 1000000000000).toFixed(12);
+  });
+}
+function loadTransactions(){
+  store.rpcRequest("wallet.account.listTransactions", {"accountID":1}).then((m) => {
+    transactions.value = [];
+    m.incoming.forEach((transaction) => {
+      transactions.value.push(createTransaction(transaction, transactionStates.incoming));
+    });
+    m.outgoing.forEach((transaction) => {
+      transactions.value.push(createTransaction(transaction, transactionStates.outgoing));
+    });
+    m.pending.forEach((transaction) => {
+      transactions.value.push(createTransaction(transaction, transactionStates.pending));
+    });
+    m.failed.forEach((transaction) => {
+      transactions.value.push(createTransaction(transaction, transactionStates.failed));
+    });
+    //console.log(transactions.value)
+  });
+}
+
+
 </script>
