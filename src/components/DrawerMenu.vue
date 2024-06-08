@@ -43,10 +43,12 @@
       <q-card-section>
         <div class="text-h6">Create a new Account</div>
       </q-card-section>
-      <q-input filled v-model="accountName" label="Wallet name" />
-
-
-
+      <q-card-section>
+        <q-input filled v-model="accountName" label="Account name" b />
+      </q-card-section>
+      <q-card-section>
+        <q-select filled :options="walletSubjects" v-model="selectedWallet" label="Wallet"></q-select>
+      </q-card-section>
       <q-card-actions align="right">
         <q-btn flat label="Cancel" color="primary" v-close-popup />
         <q-btn flat label="Create" color="primary" v-close-popup @click="createAccount()" />
@@ -56,26 +58,25 @@
 </template>
 <script setup>
 
-import { ref } from 'vue';
+import {computed, ref} from 'vue';
 import EssentialLink from "components/EssentialLink.vue";
 import WalletLink from "components/WalletLink.vue";
 
 defineOptions({
   name: 'DrawerMenu'
 })
-
+const selectedWallet = ref('')
 var accountName = ref('');
 var newAccount = ref(false);
+
+const walletSubjects = computed(() =>
+  wallets.value.map(wallet => ({ label: wallet.subject, value: wallet.subject }))
+);
 function openDialog(){
   newAccount.value = true;
 }
 function createAccount(){
-  accounts.value.push({
-    address: 'aa',
-    balance: '0 XMR',
-    name: accountName.value,
-    id:10
-  });
+  selectedWallet.value = '';
   accountName.value= '';
 }
 
