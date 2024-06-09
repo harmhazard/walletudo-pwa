@@ -3,14 +3,16 @@ import {connect, StringCodec} from "nats.ws";
 import { JSONRPCClient } from "json-rpc-2.0";
 
 export const newNatsStore = defineStore('nats', {
-  state: () => ({
-    url: '',
-    user: '',
-    password: '',
-    subject: '',
-    account: null,
-    connection: null,
-  }),
+  state: () => {
+    return {
+      url: '',
+      user: '',
+      password: '',
+      subject: '',
+      account: null,
+      connection: null,
+    }
+  },
   getters: {
     getCredentials: (state)=>{
       return {
@@ -40,7 +42,7 @@ export const newNatsStore = defineStore('nats', {
       this.subject = subject
       this.account = account
     },
-    async rpcRequest(method, params) {
+    async rpcRequest(subject, method, params) {
       if(this.connection == null) {
         return
       }
@@ -50,7 +52,7 @@ export const newNatsStore = defineStore('nats', {
         let reqData = JSON.stringify(jsonRPCRequest)
         console.log("request", reqData)
         // TODO: try catch!
-        let resp = await this.connection.request("wallets.demo1.rpc", sc.encode(reqData))
+        let resp = await this.connection.request(subject, sc.encode(reqData))
         let respData = sc.decode(resp.data)
         console.log("response", respData)
         rpcClient.receive(JSON.parse(respData))
@@ -63,6 +65,26 @@ export const newNatsStore = defineStore('nats', {
         console.log("rpc request failed", err)
       }
       return resp
+    },
+
+    async rpcDiscover() {
+      if(this.connection == null) {
+        return new Promise((resolve, reject)=>{
+          reject("connection not ready")
+        })
+      }
+      const sc = StringCodec()
+      let msgs = await this.connection.requestMany("wallets.discover", sc.encode(""), {
+        maxWait: 4000,
+        strategy: "sentinelMsg"
+      })
+      let subjects = []
+      for await (const msg of msgs) {
+        const subject = sc.decode(msg.data)
+        console.log("rpc subject", subject)
+        subjects.push(subject)
+      }
+      return subjects
     }
   }
 })

@@ -62,6 +62,7 @@
 import {computed, ref} from 'vue';
 import EssentialLink from "components/EssentialLink.vue";
 import WalletLink from "components/WalletLink.vue";
+import {newNatsStore} from "stores/natsStore"
 
 defineOptions({
   name: 'DrawerMenu'
@@ -69,6 +70,7 @@ defineOptions({
 const selectedWallet = ref('')
 var accountName = ref('');
 var newAccount = ref(false);
+const natsStore = newNatsStore()
 
 const walletSubjects = computed(() =>
   wallets.value.map(wallet => ({ label: wallet.subject, value: wallet.subject }))
@@ -211,6 +213,31 @@ const wallets = ref([
     ]
   }
 ])
+
+function doServiceDiscovery() {
+  natsStore.rpcDiscover().then(async (rpcSubjects)=>{
+    console.log("SERVICE DISCOVERY STARTED")
+    let discovered = []
+    for (const subject of rpcSubjects) {
+      const resp = await natsStore.rpcRequest(subject, "wallet.listAccounts", {})
+      discovered.push({
+        subject: subject,
+        accounts: resp,
+      })
+    }
+    console.log("SERVICE DISCOVERY ENDED", discovered)
+    wallets.value = discovered
+  }).catch((err)=>{
+    console.log("SERVICE DISCOVERY ERROR", err)
+  })
+}
+
+doServiceDiscovery()
+
+setInterval(()=>{
+  doServiceDiscovery()
+}, 4000)
+
 </script>
 <style scoped>
 
