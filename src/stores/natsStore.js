@@ -11,6 +11,7 @@ export const newNatsStore = defineStore('nats', {
       subject: '',
       account: null,
       connection: null,
+      broadcastUpdateCounter: 0
     }
   },
   getters: {
@@ -26,6 +27,9 @@ export const newNatsStore = defineStore('nats', {
     },
   },
   actions: {
+    broadcastUpdate(){
+      this.broadcastUpdateCounter++;
+    },
     async connect(url, user, password){
       this.url = url
       this.user = user

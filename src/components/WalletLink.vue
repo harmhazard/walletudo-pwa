@@ -44,6 +44,7 @@ const emit = defineEmits(['toggleDrawer']);
 function switchAccount(wallet, account){
   store.setAccount(wallet, account)
   router.push('/')
+  store.broadcastUpdate();
   emit('toggleDrawer');
 }
 

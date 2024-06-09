@@ -71,7 +71,7 @@
 
 <script setup lang="ts">
 
-import {onMounted, ref} from 'vue';
+import {onMounted, ref, watch} from 'vue';
 import {newNatsStore} from "stores/natsStore";
 import {StringCodec} from "nats.ws";
 
@@ -164,6 +164,17 @@ setInterval(() => {
   loadBalance();
   loadTransactions();
 }, 4000);
+watch(
+  () => store.broadcastUpdateCounter,
+  (newVal, oldVal) => {
+    if (newVal !== oldVal) {
+      // Code to update elements
+         console.log('Update elements triggered');
+      loadBalance();
+      loadTransactions();
+    }
+  }
+);
 
 
 </script>

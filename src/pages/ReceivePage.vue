@@ -41,7 +41,7 @@
 </template>
 
 <script setup lang="ts">
-import {onMounted, ref} from 'vue';
+import {onMounted, ref, watch} from 'vue';
 import {copyToClipboard, Notify} from 'quasar'
 import {newNatsStore} from "stores/natsStore";
 
@@ -101,6 +101,13 @@ setInterval(() => {
 
 var text = ref('');
 var alert = ref(false);
-
+watch(
+  () => store.broadcastUpdateCounter,
+  (newVal, oldVal) => {
+    if (newVal !== oldVal) {
+      getAddresses();
+    }
+  }
+);
 
 </script>

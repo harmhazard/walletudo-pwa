@@ -93,7 +93,6 @@ function createAccount(){
     accountName.value= '';
     doServiceDiscovery();
   });
-
 }
 
 const props = defineProps({
