@@ -13,7 +13,8 @@ const routes = [
     component: MainLayout,
     meta: { requiresAuth: true },
     children: [
-      { path: '', component: BalancePage, name: 'Dashboard' },
+      { path: '', component: ConnectPage, name: 'Connect' },
+      { path: 'dashboard', component: BalancePage, name: 'Dashboard' },
       { path: 'receive', component: ReceivePage, name: 'Receive' },
       { path: 'balance', component: BalancePage, name: 'Balance' },
       { path: 'transactions', component: TransactionsPage, name: 'Transactions' },
@@ -21,12 +22,12 @@ const routes = [
       {path: 'test', component: TestPage, name: 'Test'}
     ]
   },
-  {
+  /*{
     path: '/connect',
     component: ConnectLayout,
     meta: { requiresAuth: true },
     children: [{ path: '', component: ConnectPage, name: 'Connect' }],
-  },
+  },*/
   { path: '/:catchAll(.*)*', component: ErrorNotFound },
 ]
 

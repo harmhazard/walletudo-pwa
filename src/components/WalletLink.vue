@@ -7,10 +7,10 @@
   icon="account_balance_wallet"
   >
 
-    <q-item v-for="account in props.accounts" :key="account.id" clickable  dense  @click="switchAccount(props.subject, account.id)">
+    <q-item v-for="account in props.accounts" to="dashboard" :key="account.id" clickable  dense  @click="switchAccount(props.subject, account.id)">
       <q-item-section class="q-ml-xl">
-        <q-item-label overline>{{ account.balance }}</q-item-label>
-        <q-item-label>{{ account.name }}</q-item-label>
+        <q-item-label overline>{{ (account.balance / 1000000000000).toFixed(12) }} XMR</q-item-label>
+        <q-item-label>{{ account.label }}</q-item-label>
       </q-item-section>
     </q-item>
 

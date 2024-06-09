@@ -97,9 +97,10 @@ const linksList = [
     title: 'Manage server connection',
     // caption: 'Connect to walletudo server',
     icon: 'login',
-    link: '/connect'
+    link: '/'
   }
 ];
+
 const wallets = ref([
   {
     subject: 'wallet1',
