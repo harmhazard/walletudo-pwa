@@ -135,13 +135,13 @@ function createTransaction(transaction, state){
   };
 }
 function loadBalance(){
-  store.rpcRequest("wallet.account.getBalance", {"accountID":1}).then((m) => {
+  store.walletRpcRequest("wallet.account.getBalance", {"accountID":1}).then((m) => {
     balance.value = (m.balance / 1000000000000).toFixed(12);
     unlockedBalance.value = (m.unlocked_balance / 1000000000000).toFixed(12);
   });
 }
 function loadTransactions(){
-  store.rpcRequest("wallet.account.listTransactions", {"accountID":1}).then((m) => {
+  store.walletRpcRequest("wallet.account.listTransactions", {"accountID":1}).then((m) => {
     transactions.value = [];
     m.incoming.forEach((transaction) => {
       transactions.value.push(createTransaction(transaction, transactionStates.incoming));

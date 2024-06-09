@@ -69,7 +69,7 @@ onMounted(() => {
 function send(){// not working - todo fix and test
   console.log(parseFloat(amount.value)*1000000000000)//
   console.log(text.value)
-  store.rpcRequest("wallet.account.createTransaction", {"accountID":1, "address":text.value, "amount":parseFloat(amount.value)*1000000000000}).then((m) => {
+  store.walletRpcRequest("wallet.account.createTransaction", {"accountID":1, "address":text.value, "amount":parseFloat(amount.value)*1000000000000}).then((m) => {
     preparedTransaction.value = m;
     showConfirm.value = true;
     console.log(m)
@@ -77,7 +77,7 @@ function send(){// not working - todo fix and test
 }
 function confirmTransaction(txMetadata){
   if(preparedTransaction.value==null) return
-  store.rpcRequest("relayTransaction", {"txMetadata": txMetadata}).then((m) => {
+  store.walletRpcRequest("relayTransaction", {"txMetadata": txMetadata}).then((m) => {
     //console.log("transaction sent, hash:", m.txHash)
     showConfirm.value=false
     preparedTransaction.value=null

@@ -42,6 +42,11 @@ export const newNatsStore = defineStore('nats', {
       this.subject = subject
       this.account = account
     },
+
+    async walletRpcRequest(method, params) {
+      return this.rpcRequest(this.subject, method, params)
+    },
+
     async rpcRequest(subject, method, params) {
       if(this.connection == null) {
         return
