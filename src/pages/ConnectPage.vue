@@ -16,6 +16,7 @@
 import {ref} from 'vue'
 import {NatsError} from "nats.ws"
 import {newNatsStore} from "stores/natsStore"
+import {Notify} from 'quasar'
 
 const natsStore = newNatsStore()
 const url = ref(natsStore.getCredentials.url)
@@ -30,6 +31,7 @@ async function connectFn(){
     return
   }
   console.log("connected!")
+  Notify.create("Connected!")
 }
 
 defineOptions({
