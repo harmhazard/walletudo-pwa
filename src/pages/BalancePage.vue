@@ -131,17 +131,18 @@ function createTransaction(transaction, state){
     id: transaction.txid,
     amount: (transaction.amount / 1000000000000).toFixed(12),
     date: convertUnixTimestampToDateTime(transaction.timestamp),//from timestamp
-    state: state
+    state: state,
+    timestamp: transaction.timestamp
   };
 }
 function loadBalance(){
-  store.walletRpcRequest("wallet.account.getBalance", {"accountID":1}).then((m) => {
+  store.walletRpcRequest("wallet.account.getBalance", {"accountID":store.account}).then((m) => {
     balance.value = (m.balance / 1000000000000).toFixed(12);
     unlockedBalance.value = (m.unlocked_balance / 1000000000000).toFixed(12);
   });
 }
 function loadTransactions(){
-  store.walletRpcRequest("wallet.account.listTransactions", {"accountID":1}).then((m) => {
+  store.walletRpcRequest("wallet.account.listTransactions", {"accountID":store.account}).then((m) => {
     transactions.value = [];
     m.incoming.forEach((transaction) => {
       transactions.value.push(createTransaction(transaction, transactionStates.incoming));
@@ -155,9 +156,14 @@ function loadTransactions(){
     m.failed.forEach((transaction) => {
       transactions.value.push(createTransaction(transaction, transactionStates.failed));
     });
+    transactions.value.sort((a, b) => b.timestamp - a.timestamp);
     //console.log(transactions.value)
   });
 }
+setInterval(() => {
+  loadBalance();
+  loadTransactions();
+}, 4000);
 
 
 </script>

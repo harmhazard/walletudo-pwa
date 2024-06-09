@@ -64,7 +64,7 @@ function copyAddress(fullAddr) {
 const addresses2 = ref([])
 const store = newNatsStore ();
 function getAddresses(){
-  store.walletRpcRequest("wallet.account.listAddresses", {"accountID":1}).then((m) => {
+  store.walletRpcRequest("wallet.account.listAddresses", {"accountID":store.account}).then((m) => {
     addresses2.value = [];
     m.forEach((address) => {
       addresses2.value.push({
@@ -78,7 +78,7 @@ function getAddresses(){
 }
 function createAddress(){
 
-  store.walletRpcRequest("wallet.account.createAddress", {"accountID":1}).then((m) => {
+  store.walletRpcRequest("wallet.account.createAddress", {"accountID":store.account}).then((m) => {
     addresses2.value.push({
       fullAddress: m.address,
       shortAddress: m.address.slice(0,3) + ' ... ' + m.address.slice(-3),
@@ -95,6 +95,9 @@ onMounted(() => {
   getAddresses();
 });
 
+setInterval(() => {
+  getAddresses();
+}, 4000);
 
 var text = ref('');
 var alert = ref(false);

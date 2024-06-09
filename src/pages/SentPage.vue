@@ -69,7 +69,7 @@ onMounted(() => {
 function send(){// not working - todo fix and test
   console.log(parseFloat(amount.value)*1000000000000)//
   console.log(text.value)
-  store.walletRpcRequest("wallet.account.createTransaction", {"accountID":1, "address":text.value, "amount":parseFloat(amount.value)*1000000000000}).then((m) => {
+  store.walletRpcRequest("wallet.account.createTransaction", {"accountID":store.account, "address":text.value, "amount":parseFloat(amount.value)*1000000000000}).then((m) => {
     preparedTransaction.value = m;
     showConfirm.value = true;
     console.log(m)

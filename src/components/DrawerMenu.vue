@@ -63,6 +63,7 @@ import {computed, ref} from 'vue';
 import EssentialLink from "components/EssentialLink.vue";
 import WalletLink from "components/WalletLink.vue";
 import {newNatsStore} from "stores/natsStore"
+import {Notify} from "quasar";
 
 defineOptions({
   name: 'DrawerMenu'
@@ -84,8 +85,15 @@ function openDialog(){
   newAccount.value = true;
 }
 function createAccount(){
-  selectedWallet.value = '';
-  accountName.value= '';
+  natsStore.rpcRequest(selectedWallet.value.value, "wallet.account.create", {label: accountName.value}).then((m) => {
+    // console.log(m)
+    console.log(selectedWallet.value.value)
+    Notify.create('Account created!');
+    selectedWallet.value = '';
+    accountName.value= '';
+    doServiceDiscovery();
+  });
+
 }
 
 const props = defineProps({

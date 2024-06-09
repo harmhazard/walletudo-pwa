@@ -1,5 +1,5 @@
 <template>
-  <q-layout view="hhr lpr fFr">
+  <q-layout view="hHr lpr fFr">
     <q-header elevated>
       <q-toolbar>
         <q-btn
@@ -23,7 +23,7 @@
       <q-tabs
       >
         <q-route-tab to='/receive' name="receive" icon="file_download" label="Receive" />
-        <q-route-tab to='/' name="balance" icon="account_balance_wallet" label="Balance" />
+        <q-route-tab to='/balance' name="balance" icon="account_balance_wallet" label="Balance" />
         <q-route-tab to='/send' name="send" icon="file_upload" label="Send" />
       </q-tabs>
     </q-footer>
